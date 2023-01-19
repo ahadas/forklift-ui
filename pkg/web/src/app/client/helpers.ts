@@ -67,6 +67,7 @@ export function convertFormValuesToSecret(
   if (values.providerType === 'ovirt') {
     const rhvValues = values as RHVProviderFormValues;
     secretData = {
+      url: btoa(ovirtHostnameToUrl(rhvValues.hostname)),
       user: btoa(rhvValues.username),
       password: btoa(rhvValues.password),
       cacert: btoa(rhvValues.caCert),
@@ -92,6 +93,7 @@ export function convertFormValuesToSecret(
       labels: {
         createdForResourceType,
         createdForResource: values.name,
+	createdForProviderType: 'ovirt',
       },
       ownerReferences: !providerBeingEdited
         ? []
